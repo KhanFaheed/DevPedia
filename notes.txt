@@ -1,0 +1,14 @@
+query_set=ModelName.objects.Methods()
+ Methods----all()->returns the entire queryset, get()--->returns an object ,filter()-->returns a query set, exclude-->returns query set
+
+ Retrieving Objects:
+
+all(): Returns all objects in the queryset. Usually the starting point for refining a query.
+get(): Returns exactly one object. Raises ModelName.DoesNotExist if no object is found, or ModelName.MultipleObjectsReturned if more than one object is found. Use with caution!
+filter(**kwargs): Returns a new queryset containing objects that match the given lookup conditions. This is the workhorse of querying.
+exclude(**kwargs): Returns a new queryset containing objects that do not match the given lookup conditions.
+first(): Returns the first object in the queryset, or None if the queryset is empty. Useful when you expect only one result or want to avoid exceptions.
+last(): Returns the last object in the queryset, or None if the queryset is empty.
+count(): Returns the number of objects in the queryset. Efficiently performed by the database.
+exists(): Returns True if the queryset contains any objects, False otherwise. More efficient than count() > 0.
+
