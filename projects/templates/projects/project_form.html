@@ -4,7 +4,17 @@
 <h1>Project Form</h1>
 <form method="POST" action="">
     {% csrf_token %}
+    {% for field in form%}  
+   
+     {# comment:where field is each field inside the form and label is the label of each field if not mentioned default field name defined in the model #}
+        <div>
+        {{field.label}}
+        {{field}}
+        
+        </div>
+        <br>
 
+    {% endfor %}
     <input type="submit">
 
 </form>
