@@ -16,6 +16,7 @@ def projects(request):
 def project(request,pk):
     projectobj=Project.objects.get(id=pk)
     context={'project':projectobj}
+    print(projectobj.featured_image.url)
     return render(request,'projects/single-project.html',context)
 
 def createProject(request):
