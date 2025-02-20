@@ -11,5 +11,6 @@ class ProjectForm(ModelForm):
     #meta refers to data about data
     class Meta:
         model=Project
-        fields=['title','description','demo_link','source_link','tags']
+        fields=['title','featured_image','description',
+                'demo_link','source_link','tags']
 

@@ -2,7 +2,7 @@
 
 
 {%block content%}
-   <img src="{{ project.featured_image.url }}" alt="">
+   <img style="max-width: 500px;" src="{{ project.featured_image.url }}" alt="May_need_ngnix_server/aws s3 and cdn to serve this media file in production">
   <h1>{{project.title}}</h1>
   <hr>
   {%for tag in project.tags.all%}

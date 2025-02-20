@@ -2,21 +2,22 @@
 {% block content %}
 
 <h1>Project Form</h1>
-<form method="POST" action="">
+<form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}
-    {% for field in form%}  
-   
-     {# comment:where field is each field inside the form and label is the label of each field if not mentioned default field name defined in the model #}
-        <div>
-        {{field.label}}
-        {{field}}
-        
-        </div>
-        <br>
-
-    {% endfor %}
+     {{form.as_p}}
     <input type="submit">
 
 </form>
 
 {% endblock content %}
+
+
+<!-- 
+  The enctype="multipart/form-data" attribute is necessary to properly 
+  handle file uploads in HTML forms. 
+=>It ensures that binary file data is transmitted correctly to the server.
+  If your form has a file input,always include this attribute in your <form> tag
+
+    =>t doesn't encode characters. Instead, it breaks the form data into multiple parts,
+     each with its own headers, and sends them as a multipart message
+-->

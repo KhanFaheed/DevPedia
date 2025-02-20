@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@rci+@!3cm)fog0-3fh8^j44u05=ws&dbx%anb55my(gnpnqgn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
 # Application definition
@@ -43,12 +43,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'DevPedia.urls'
@@ -122,16 +124,40 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL='/images/'
 
+#static ->to store the css,javascript and images that are part of ou application
+#media-> user generated contents like images and docs (USER UPLOADS)
+
 STATICFILES_DIRS=[
     BASE_DIR / 'static',
 ]
 
 
+"""When DEBUG=False, you rely entirely on your web server to serve static and media files.
+You configure your web server to serve static files from STATIC_ROOT and media files from MEDIA_ROOT."""
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
-
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+ 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+"""What are static files?
+-> These are files that don't change dynamically, like CSS stylesheets,
+JavaScript files, images used for design,
+ and other assets that are part of your website's presentation."""
+
+"""What are media files?
+ ->These are files that users 
+upload to your website, like profile pictures,
+ document attachments, or other user-generated content."""
+
+"""whitenoise->for serving static files in production
+-->It turns our django application into its own static files server.This is achieved 
+by adding its middlware to the django middleware stack"""
+
+"""Ngnix/Apache server for serving both static and media files in production"""
+
+"""AWS S3/CloudFront can serve both static and media files effectively in production"""
