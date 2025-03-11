@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 from django.http import HttpResponse
 from .models import Project,Tag,Review
@@ -20,6 +22,7 @@ def project(request,pk):
     print(projectobj.featured_image.url)
     return render(request,'projects/single-project.html',context)
 
+@login_required(login_url='login')# if the user is not logged in and they try Add Project then they are redirected to the login page
 def createProject(request):
     form=ProjectForm()
 
@@ -34,6 +37,7 @@ def createProject(request):
     }
     return render(request,'projects/project_form.html',context)
 
+@login_required(login_url='login')
 def updateProject(request,pk):
     project=Project.objects.get(id=pk)
     form=ProjectForm(instance=project)
@@ -50,10 +54,11 @@ def updateProject(request,pk):
     }
     return render(request,'projects/project_form.html',context)
 
+@login_required(login_url='login')
 def deleteProject(request,pk):
     project=Project.objects.get(id=pk)
     if request.method=='POST':
         project.delete()
         return redirect('projects')
     context={'object':project}
-    return render(request,'projects/delete_template.html',context)
+    return render(request,'projects/delete_template.html',context)  

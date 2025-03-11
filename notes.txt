@@ -12,3 +12,37 @@ last(): Returns the last object in the queryset, or None if the queryset is empt
 count(): Returns the number of objects in the queryset. Efficiently performed by the database.
 exists(): Returns True if the queryset contains any objects, False otherwise. More efficient than count() > 0.
 
+
+class Project(models.Model):
+    owner=models.foreignkey(Profile,on_delete=Model.cascade) #this means that if we delete a user all the projects of that user will be deleted 
+    #owner is a foreignkey to Profile model and similarly django creates a reverse relation called "profile_set"
+
+
+1.Case: To access the profile object for a specific project
+  project_obj=Project.objects.get(id=pk)
+
+  profile=project_obj.owner
+
+2.Case: to access the child object using the parent object like -> to acess the Project object using the Profile object
+
+   profile_obj=Profile.object.get(id=pk)
+
+   project=profile_obj.project_set.all
+
+
+   Note->foreignkey is always on the manyside of the relationship
+
+
+
+Authentication vs Authorization:
+Authentication->To validate the users or to confirm who you are
+
+Authorization->Grant or denies you permissions to acess a certain resources
+
+
+
+
+
+
+     
+
