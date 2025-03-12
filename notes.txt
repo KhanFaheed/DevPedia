@@ -35,9 +35,49 @@ class Project(models.Model):
 
 
 Authentication vs Authorization:
-Authentication->To validate the users or to confirm who you are
+Authentication->To validate the users or to confirm who you are  [like Login system]  [Who the user is?]
 
-Authorization->Grant or denies you permissions to acess a certain resources
+Authorization->Grant or denies you permissions to acess a certain resources  [what an user can do on the website or resctring user based on their role on the website or the admin access][What all the user have access to?]
+
+
+Session:Django has built in functionality for sessions and creates a session table as soon as we run our first migration and that session also sent ot the browser.
+
+Session refers to a mechanism that allows you to store and Retrieve artbitrary data on a per-site-visitor basis. Essentialy, it's a way to maintain state between HTTP requests.
+
+HTTP is stateless:
+     1. The HTTP ptotocol ,which underlines the web, is inherently stateless. This means that each request from a browser to the server is independent of any previous requests.
+     2.This statelessness makes it difficult to track user activity across multiple pages or requests.
+
+Session provides state:
+  1. Django's session framework solves this problem by providing a way to store user-specific data on the server.
+  2.When a user visits  a Django Website , the server can create a session and assign a unique session ID to that user.
+  3.This session ID is typically stored in a cookie on the user's browser.
+  4.With each subsequent request from the same browser , the browser sends the session ID back to the server.
+  5.The server can then use this session ID  to Retrieve the associated session data.[like a Login session]
+
+  Key use case of sessions:
+    1.User Authentication:Sessions are commonly used to store the login information,allowing the server  to recognise the Authenticated user.
+    2.Shoping Carts:E-commerce websites uses sessions to store the items in a user's shoping carts.
+    3.User preferences:Sessions can store user-specific stetings or preferences.
+    4.Temporary data:Any sata that needs tobe stored temporarily between requests.
+
+  Django Provides various options for stroing the session data:
+     - database
+     -Cache (eg. Memcached ,Redis)
+     -Files
+
+Example->Whenever a users is logged-in, the session id is stored on the server and the users browser cookies. 
+        ->When the user is logged-out the session-id for that user is deleted from the browser's cookies.
+
+
+        
+
+
+
+
+
+
+
 
 
 

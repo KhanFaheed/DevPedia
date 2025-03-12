@@ -3,6 +3,9 @@ from django.contrib.auth import login,authenticate,logout
 
 from django.contrib.auth.models import User
 from .models import Profile
+
+from django.contrib import messages #flash messages
+
 # Create your views here.
 def profiles(request):
     profiles=Profile.objects.all()
@@ -36,21 +39,23 @@ def loginUser(request): # the request is GET request first to acess the localhos
             user=User.objects.get(username=username) #make sure that username exist in the database
            
         except:
-            print("username does not exist")
+            messages.error(request,'Username does not exist')
+           
 
-        user=authenticate(request,username=username,password=password) # check if the user  exist in the database
+        user=authenticate(request,username=username,password=password) # query the database to check if a user with credential is present in the datbase an it will get that user
 
         if user is not None:
             login(request,user) #this will create a session for this user in the database
-            #and also it is going to get that session and add it to our browser cookies
+            #and also it is going to get that session and add it into our browser cookies
             return redirect('profiles')
         else:
-            print("username or password is incorrect")
+            messages.error(request,"username or password is incorrect")
     return render(request,'users/login_register.html')
 
 def logoutUser(request):
     logout(request) # this delete the session
     #after loging out take the user to the login page
+    messages.success(request,'User was logged out!')
     return redirect('login')
 
 
