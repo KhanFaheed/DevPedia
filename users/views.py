@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate,logout
+from .forms import CustomUserCreationForm
 
 from django.contrib.auth.models import User
 from .models import Profile
@@ -26,6 +27,10 @@ def userProfile(request,pk):
     return render(request,'users/user-profile.html',context)
 
 def loginUser(request): # the request is GET request first to acess the localhost:8000/login/ ---->then next time when the user submits the form request is POST
+    page="login"
+    context={
+        'page':page
+    }
     
     #edge case if the user is already login and the request is made he should not see the login page [when making a get request to localhost:3000/login and the user is already login]
     if request.user.is_authenticated:
@@ -50,7 +55,7 @@ def loginUser(request): # the request is GET request first to acess the localhos
             return redirect('profiles')
         else:
             messages.error(request,"username or password is incorrect")
-    return render(request,'users/login_register.html')
+    return render(request,'users/login_register.html',context)
 
 def logoutUser(request):
     logout(request) # this delete the session
@@ -59,12 +64,34 @@ def logoutUser(request):
     return redirect('login')
 
 
+
+def registerUser(request):
+    page='register'
+    form=CustomUserCreationForm()
+    if request.method=='POST':
+        form=CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            # directly we can just say  ->>>>   form.save()
+            user=form.save(commit=False)
+            #converting the username of anytype to complete lowercase
+            user.username=user.username.lower()
+            user.save()
+            messages.success(request,'User account was created successfully!')
+            login(request,user)
+            return redirect('profiles')
+        else:
+            messages.error(request,'An error has occurred during registration!')
+
+
+    context={
+     'page':page,
+     'form':form
+    }
+    return render(request,'users/login_register.html',context)
+
+
         
 
 
 
-        # action="{%url 'login'%}" after submiting the form routed to the same page
-
-
-    #this will be done after the get request to the url localhost:8000/login/
-    return render(request,'users/login_register.html')# login page is rendered
+        
