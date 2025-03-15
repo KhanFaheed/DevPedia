@@ -36,7 +36,6 @@ post_delete.connect(deleteUser,sender=Profile)
 
 
 
-
 """
 Absolutely! Let's break down Django signals and their practical applications.
 
