@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 from django.contrib import messages #flash messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def profiles(request):
@@ -45,6 +46,7 @@ def loginUser(request): # the request is GET request first to acess the localhos
            
         except:
             messages.error(request,'Username does not exist')
+            
            
 
         user=authenticate(request,username=username,password=password) # query the database to check if a user with credential is present in the datbase an it will get that user
@@ -60,7 +62,7 @@ def loginUser(request): # the request is GET request first to acess the localhos
 def logoutUser(request):
     logout(request) # this delete the session
     #after loging out take the user to the login page
-    messages.success(request,'User was logged out!')
+    messages.info(request,'User was logged out!')
     return redirect('login')
 
 
@@ -90,7 +92,20 @@ def registerUser(request):
     return render(request,'users/login_register.html',context)
 
 
-        
+
+@login_required(login_url='login')
+def userAccount(request):                  #request.user->logged in user
+    profile=request.user.profile
+    skills=profile.skill_set.all()
+    projects=profile.project_set.all()
+    
+    context={
+        'profile':profile,
+        'skills':skills,
+        'projects':projects
+    }
+    return render(request,'users/account.html',context)
+
 
 
 

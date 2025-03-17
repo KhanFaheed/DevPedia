@@ -5,10 +5,19 @@
 {% block content %}
 
 <!--Here I have used a conditional rendering using the same html file ot render to different pages -->
+
+
+
+
 {% if page == 'register' %}
 
 <div class="auth">
+
+ 
+
   <div class="card">
+   
+
     <div class="auth__header text-center">
       <a href="/">
         <img src="{% static 'images/icon.svg' %}" alt="icon" />
@@ -55,7 +64,21 @@
 
 {% else %}   <!--login page-->
 <div class="auth">
+
     <div class="card">
+
+         {% if messages %}
+    
+          {% for message in messages %}
+          <div class="alert  alert--{{message.tags}}">
+            <p class="alert__message">{{message}}</p>
+            <button class="alert__close">x</button>
+          </div>
+    
+           {% endfor %}
+    
+           {% endif %}
+
       <div class="auth__header text-center">
         <a href="/">
           <img src="{% static 'images/icon.svg' %}" alt="icon" />        
