@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate,logout
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,ProfileForm
 
 from django.contrib.auth.models import User
 from .models import Profile
 
 from django.contrib import messages #flash messages
 from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 def profiles(request):
@@ -105,6 +107,18 @@ def userAccount(request):                  #request.user->logged in user
         'projects':projects
     }
     return render(request,'users/account.html',context)
+
+
+@login_required(login_url='login')
+def editAccount(request):
+    form=ProfileForm()
+
+
+    context={
+        'form':form
+
+    }
+    return render(request,'users/profile_form.html',context)
 
 
 
