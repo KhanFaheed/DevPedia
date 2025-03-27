@@ -28,7 +28,17 @@ def deleteUser(sender,instance,**kwargs):
 
 def updateUser(sender,instance,created,**kwargs):
     profile=instance
-    user=profile.user
+    user=profile.user #because there is one to  one relationship from profile to user and user to profile ->we can go both the way
+    
+    if created==False:
+        user.first_name=profile.name
+        user.username=profile.username
+        user.email=profile.email
+        user.save()
+
+
+
+        
 
 
 
@@ -122,9 +132,9 @@ update_fields: The set of fields that were explicitly specified to be saved.
 
 Summary of Parameters
 Parameter	Description
-sender	->The model class that sent the signal (e.g., User).
-instance->	The specific model instance being saved (e.g., a User object).
-created->	A boolean indicating whether the instance was created (True) or updated (False).
-**kwargs->	Additional keyword arguments provided by the signal (e.g., raw, using).
+sender	 ->The model class that sent the signal (e.g., User).
+instance ->	The specific model instance being saved (e.g., a User object).
+created  ->	A boolean indicating whether the instance was created (True) or updated (False).
+**kwargs ->	Additional keyword arguments provided by the signal (e.g., raw, using).
 
 """

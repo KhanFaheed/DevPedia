@@ -66,11 +66,24 @@ Session provides state:
      -Cache (eg. Memcached ,Redis)
      -Files
 
-Example->Whenever a users is logged-in, the session id is stored on the server and the users browser cookies. 
-        ->When the user is logged-out the session-id for that user is deleted from the browser's cookies.
+Example->Whenever a users is logged-in, the session id is stored on the server[or in the database like in  the postgresql database] and the users browser cookies. 
+        ->When the user is logged-out the session-id for that user is deleted from the browser's cookies but it is not deleted from the database.
 
 
-        
+Django Message framework=>for one time notification messages or flash messages.[to display temporary messages like success ,error etc. on your web pages]
+     purpose: 1. User feedback or improve the user experience  2.notifications or alert
+   from django.contrib import messages
+   1. messages.debug(request, message)
+   2.messages.info(request, message)
+   3.messages.success(request, message)
+   4.messages.warning(request, message)
+   5.messages.error(request, message)
+
+
+
+
+
+
 
 
 

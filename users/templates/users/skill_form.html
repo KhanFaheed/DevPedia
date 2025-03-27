@@ -2,36 +2,19 @@
 
 {% block content %}
 
+<!--When the action attribute of an HTML <form> tag is empty (action=""), 
+the form's data is submitted to the same URL as the current page. 
+=>In simpler terms, the form submits back to itself.-->
 
 
-
-
-{% if messages %}
-    
-{% for message in messages %}
-<div class="alert  alert--{{message.tags}}">
-  <p class="alert__message">{{message}}</p>
-  <button class="alert__close">x</button>
-</div>
-
- {% endfor %}
-
-{% endif %}
-
-
-
-
-
-
-
-<!-- Main Section -->
 <main class="formPage my-xl">
+    
     <div class="content-box">
         <div class="formWrapper">
-            <a class="backButton" href="{% url 'account' %}"><i class="bi bi-caret-left"></i></a>   
+            <a class="backButton" href="{% url 'account' %}"><i class="bi bi-caret-left"></i></a>
             <br>
 
-            <form class="form" method="POST" action="{% url 'edit-account' %}" enctype="multipart/form-data">
+            <form class="form" method="POST" >
                 {% csrf_token %}
                 <!-- Input:Text -->
                 {% for field in form %}
@@ -41,11 +24,11 @@
                 </div>
                 {% endfor %}
 
-
                 <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
             </form>
         </div>
     </div>
 </main>
 
-{% endblock content %}
+
+{% endblock %}
